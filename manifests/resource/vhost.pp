@@ -64,6 +64,8 @@ define nginx::resource::vhost(
   $fastcgi_pass           = false,
   $try_files              = undef,
   $is_nagios3             = false,
+  $has_auth               = false,
+  $auths                  = {info=>'nginx basic', file => '/etc/nginx/htpasswd'},
 ) {
 
   File {
