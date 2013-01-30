@@ -61,7 +61,9 @@ define nginx::resource::location(
   $stub_status          = undef,
   $location_cfg_prepend = undef,
   $location_cfg_append  = undef,
-  $try_files            = undef,
+  $try_files            = false,
+  $fastcgi_pass         = false,
+  $is_nagios3           = false,
   $location
 ) {
   File {
@@ -78,15 +80,27 @@ define nginx::resource::location(
   }
 
   # Use proxy template if $proxy is defined, otherwise use directory template.
-  if ($proxy != undef) {
-    $content_real = template('nginx/vhost/vhost_location_proxy.erb')
-  } elsif ($location_alias != undef) {
-    $content_real = template('nginx/vhost/vhost_location_alias.erb')
-  } elsif ($stub_status != undef) {
-    $content_real = template('nginx/vhost/vhost_location_stub_status.erb')
+  if ($is_nagios3) {
+     nginx::resource::upstream { 'fcgiwrap':
+         ensure  => present,
+         members => [
+                 'unix:/var/run/fcgiwrap.socket;', 
+                     ],
+     }
+
+    $content_real = template('nginx/vhost/vhost_location_nagios3.erb')
   } else {
-    $content_real = template('nginx/vhost/vhost_location_directory.erb')
+    if ($proxy != undef) {
+      $content_real = template('nginx/vhost/vhost_location_proxy.erb')
+    } elsif ($location_alias != undef) {
+      $content_real = template('nginx/vhost/vhost_location_alias.erb')
+    } elsif ($stub_status != undef) {
+      $content_real = template('nginx/vhost/vhost_location_stub_status.erb')
+    } else {
+      $content_real = template('nginx/vhost/vhost_location_directory.erb')
+    }
   }
+
 
   ## Check for various error condtiions
   if ($vhost == undef) {

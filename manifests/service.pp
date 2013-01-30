@@ -15,7 +15,7 @@
 # This class file is not called directly
 class nginx::service(
   $configtest_enable   = $nginx::params::nx_configtest_enable,
-  $service_restart     = $nginx::params::nx_service_restart
+  $service_restart     = $nginx::params::nx_service_reload
 ) {
   exec { 'rebuild-nginx-vhosts':
     command     => "/bin/cat ${nginx::params::nx_temp_dir}/nginx.d/* > ${nginx::params::nx_conf_dir}/conf.d/vhost_autogen.conf",
@@ -28,6 +28,7 @@ class nginx::service(
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
+    restart    => '/etc/init.d/nginx reload',
     subscribe  => Exec['rebuild-nginx-vhosts'],
   }
   if $configtest_enable == true {

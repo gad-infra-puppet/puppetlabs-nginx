@@ -51,7 +51,7 @@ define nginx::resource::vhost(
   $ssl                    = false,
   $ssl_cert               = undef,
   $ssl_key                = undef,
-  $ssl_port		  = '443',
+  $ssl_port               = '443',
   $proxy                  = undef,
   $proxy_read_timeout     = $nginx::params::nx_proxy_read_timeout,
   $index_files            = ['index.html', 'index.htm', 'index.php'],
@@ -60,7 +60,10 @@ define nginx::resource::vhost(
   $rewrite_www_to_non_www = false,
   $location_cfg_prepend   = undef,
   $location_cfg_append    = undef,
-  $try_files              = undef
+  $location               = '/',
+  $fastcgi_pass           = false,
+  $try_files              = undef,
+  $is_nagios3             = false,
 ) {
 
   File {
@@ -101,16 +104,18 @@ define nginx::resource::vhost(
 
   # Create the default location reference for the vHost
   nginx::resource::location {"${name}-default":
-    ensure               => $ensure,
-    vhost                => $name,
-    ssl                  => $ssl,
-    ssl_only             => $ssl_only,
-    location             => '/',
-    proxy                => $proxy,
-    proxy_read_timeout   => $proxy_read_timeout,
-    try_files            => $try_files,
-    www_root             => $www_root,
-    notify               => Class['nginx::service'],
+    ensure             => $ensure,
+    vhost              => $name,
+    ssl                => $ssl,
+    ssl_only           => $ssl_only,
+    location           => $location,
+    proxy              => $proxy,
+    proxy_read_timeout => $proxy_read_timeout,
+    try_files          => $try_files,
+    www_root           => $www_root,
+    notify             => Class['nginx::service'],
+    fastcgi_pass       => $fastcgi_pass,
+    is_nagios3         => $is_nagios3,
   }
 
   # Support location_cfg_prepend and location_cfg_append on default location created by vhost

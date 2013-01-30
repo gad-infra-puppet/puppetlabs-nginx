@@ -60,5 +60,6 @@ class nginx::params {
   # then service restart will take $nx_service_restart value, forcing configtest.
   $nx_configtest_enable	 = false
   $nx_service_restart = "/etc/init.d/nginx configtest && /etc/init.d/nginx restart"
+  $nx_service_reload = "/etc/init.d/nginx configtest && /etc/init.d/nginx reload"
 
 }
