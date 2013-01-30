@@ -84,8 +84,8 @@ define nginx::resource::location(
      nginx::resource::upstream { 'fcgiwrap':
          ensure  => present,
          members => [
-                 'unix:/var/run/fcgiwrap.socket;', 
-                     ],
+                     'unix:/var/run/fcgiwrap.socket', 
+                    ],
      }
 
     $content_real = template('nginx/vhost/vhost_location_nagios3.erb')

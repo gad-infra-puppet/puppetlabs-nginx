@@ -1,8 +1,9 @@
 upstream <%= name %> {
-  <% members.each do |i| %>
+  <% members.each do |i| -%>
   server <%= i %>;
-  <% end %>
-  <% if check %>
+  <% end -%>
+
+  <% if check -%>
   check <%= check %>
-  <% end %>
+  <% end -%>
 }
