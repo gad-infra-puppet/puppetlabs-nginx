@@ -65,7 +65,10 @@ define nginx::resource::vhost(
   $try_files              = undef,
   $is_nagios3             = false,
   $has_auth               = false,
-  $auths                  = {info=>'nginx basic', file => '/etc/nginx/htpasswd'},
+  $auths                  = { 
+                              info=>'nginx basic', 
+                              file => '/etc/nginx/htpasswd.users'
+                            },
 ) {
 
   File {

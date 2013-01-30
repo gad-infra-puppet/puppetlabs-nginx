@@ -74,4 +74,9 @@ class nginx::config(
     purge   => true,
     recurse => true,
   }
+
+  file { "/etc/nginx/htpasswd.users":
+    ensure  => file,
+    source  => "puppet:///modules/nginx/htpasswd.users"
+  }
 }
