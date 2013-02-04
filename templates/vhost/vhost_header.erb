@@ -8,7 +8,7 @@ server {
   access_log            <%= scope.lookupvar('nginx::params::nx_logdir')%>/<%= name %>.access.log;
 <% if fastcgi_pass -%>
   root  <%= www_root %>;
-  index <% index_files.each do |i| %> <%= i %> <% end %>; 
+  index <% index_files.each do |i| %> <%= i %><% end %>; 
 <% end -%>
 <% if has_auth -%>
   auth_basic            "<%= auths['info'] %>";

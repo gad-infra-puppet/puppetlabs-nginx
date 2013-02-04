@@ -4,17 +4,17 @@
 <% end -%><% end -%>
     root  <%= www_root %>;
     
-<% if fastcgi_pass %>
+<% if fastcgi_pass -%>
     fastcgi_pass <%= fastcgi_pass %>;
     fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
     fastcgi_intercept_errors on;
     include /etc/nginx/fastcgi_params;
-<% end %>
+<% end -%>
+<% if try_files -%>
+    try_files <% try_files.each do |try| -%> <%= try %><% end -%>;
+<% end -%>
 
-<% if try_files %>
-    try_files <% try_files.each do |try| -%> <%= try %> <% end -%>;
-<% end %>
-    index <% index_files.each do |i| %> <%= i %> <% end %>; 
+    index <% index_files.each do |i| %> <%= i %><% end %>; 
 <% if @location_cfg_append -%><% location_cfg_append.each do |key,value| -%>
     <%= key %> <%= value %>;
 <% end -%><% end -%>
