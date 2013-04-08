@@ -5,5 +5,8 @@ upstream <%= name %> {
 
   <% if check -%>
   check <%= check %>
+  <% if check_path -%>
+  check_http_send "GET ${check_path} HTTP/1.0\r\n\r\n"
+  <% end -%>
   <% end -%>
 }
