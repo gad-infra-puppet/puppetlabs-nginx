@@ -118,6 +118,7 @@ define nginx::resource::vhost(
     proxy_read_timeout => $proxy_read_timeout,
     try_files          => $try_files,
     www_root           => $www_root,
+    index_files        => $index_files,
     notify             => Class['nginx::service'],
     fastcgi_pass       => $fastcgi_pass,
     is_nagios3         => $is_nagios3,
