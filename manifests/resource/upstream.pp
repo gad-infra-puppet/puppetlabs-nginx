@@ -5,6 +5,8 @@
 # Parameters:
 #   [*ensure*]      - Enables or disables the specified location (present|absent)
 #   [*members*]     - Array of member URIs for NGINX to connect to. Must follow valid NGINX syntax.
+#   [*check*]       - check configuration of heath-check of upstream
+#   [*check_path*]  - relative path of heath-check url
 #
 # Actions:
 #
@@ -22,7 +24,8 @@
 define nginx::resource::upstream (
   $ensure = 'present',
   $members,
-  $check = false
+  $check = false,
+  $check_path = false
 ) {
   File {
     owner => 'root',
