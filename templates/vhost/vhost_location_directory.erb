@@ -19,7 +19,9 @@
 <%- if try_files -%>
     try_files <% try_files.each do |try| -%> <%= try %><% end -%>;
 <%- end -%>
+<%- if index_files -%>
     index <% index_files.each do |i| %> <%= i %><% end %>; 
+<%- end -%> 
 <%- if @location_cfg_append -%>
   <%- location_cfg_append.sort.each do |key,value| -%>
     <%- if value.is_a?(Array) -%>

@@ -12,16 +12,17 @@
 <%- end -%>
     root  <%= www_root %>;
     
-<% if fastcgi_pass -%>
+<%- if fastcgi_pass -%>
     fastcgi_pass <%= fastcgi_pass %>;
     fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
     include /etc/nginx/fastcgi_params;
-<% end -%>
-<% if try_files -%>
+<%- end -%>
+<%- if try_files -%>
     try_files <% try_files.each do |try| -%> <%= try %><% end -%>;
-<% end -%>
-
+<%- end -%>
+<%- if index_files -%>
     index <% index_files.each do |i| %> <%= i %><% end %>; 
+<%- end -%>
 <%- if @location_cfg_append -%>
   <%- location_cfg_append.sort.each do |key,value| -%>
     <%- if value.is_a?(Array) -%>
