@@ -33,6 +33,7 @@ class nginx (
   $worker_connections = $nginx::params::nx_worker_connections,
   $keepalive_timeout  = $nginx::params::nx_keepalive_timeout,
   $proxy_set_header   = $nginx::params::nx_proxy_set_header,
+  $proxy_hide_header  = $nginx::params::nx_proxy_hide_header,
   $confd_purge        = $nginx::params::nx_confd_purge,
   $configtest_enable  = $nginx::params::nx_configtest_enable,
   $service_restart    = $nginx::params::nx_service_restrart
@@ -49,6 +50,7 @@ class nginx (
     worker_connections => $worker_connections,
     keepalive_timeout  => $keepalive_timeout,
     proxy_set_header   => $proxy_set_header,
+    proxy_hide_header  => $proxy_hide_header,
     confd_purge        => $confd_purge,
     require 		=> Class['nginx::package'],
     notify  		=> Class['nginx::service'],
