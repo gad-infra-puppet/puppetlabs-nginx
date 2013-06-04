@@ -11,7 +11,6 @@
   <%- end -%>
 <%- end -%>
     proxy_pass <%= proxy %>;
-    proxy_read_timeout <%= proxy_read_timeout %>;
 <%- if @location_cfg_append -%>
   <%- location_cfg_append.sort.each do |key,value| -%>
     <%- if value.is_a?(Array) -%>

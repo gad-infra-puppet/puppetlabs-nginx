@@ -15,3 +15,5 @@ server {
   auth_basic_user_file  <%= auths['file'] %>;
 <% end -%>
 
+  include /etc/nginx/conf.d/proxy.conf;
+
