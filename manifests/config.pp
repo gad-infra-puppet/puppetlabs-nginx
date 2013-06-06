@@ -18,6 +18,7 @@ class nginx::config(
   $worker_connections  = $nginx::params::nx_worker_connections,
   $keepalive_timeout   = $nginx::params::nx_keepalive_timeout,
   $proxy_set_header    = $nginx::params::nx_proxy_set_header,
+  $proxy_hide_header   = $nginx::params::nx_proxy_hide_header,
   $confd_purge         = $nginx::params::nx_confd_purge
 ) inherits nginx::params {
   File {
@@ -30,7 +31,12 @@ class nginx::config(
     ensure => directory,
   }
 
-  file { ["${nginx::params::nx_conf_dir}/conf.d", "${nginx::params::nx_conf_dir}/rules.d"]:
+  file { 
+    [
+      "${nginx::params::nx_conf_dir}/conf.d", 
+      "${nginx::params::nx_conf_dir}/rules.d",
+      "${nginx::params::nx_conf_dir}/includes",
+    ]:
     ensure => directory,
   }
   if $confd_purge == true {

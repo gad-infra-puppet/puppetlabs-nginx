@@ -1,5 +1,5 @@
 server {
-  listen                <%= listen_ip %>:<%= listen_port %> <% if @listen_options %><%= listen_options %><% end %>;
+  listen    <%= listen_ip %>:<%= listen_port %> <% if @listen_options %><%= listen_options %><% end %>;
   <% # check to see if ipv6 support exists in the kernel before applying %>
   <% if ipv6_enable == 'true' && (defined? ipaddress6) %>
   listen [<%= ipv6_listen_ip %>]:<%= ipv6_listen_port %> <% if @ipv6_listen_options %><%= ipv6_listen_options %><% end %> ipv6only=on;
@@ -23,4 +23,3 @@ server {
 <% end -%>
 
   include /etc/nginx/conf.d/proxy.conf;
-
