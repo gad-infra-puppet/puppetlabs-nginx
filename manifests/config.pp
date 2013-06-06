@@ -31,7 +31,12 @@ class nginx::config(
     ensure => directory,
   }
 
-  file { ["${nginx::params::nx_conf_dir}/conf.d", "${nginx::params::nx_conf_dir}/rules.d"]:
+  file { 
+    [
+      "${nginx::params::nx_conf_dir}/conf.d", 
+      "${nginx::params::nx_conf_dir}/rules.d",
+      "${nginx::params::nx_conf_dir}/includes",
+    ]:
     ensure => directory,
   }
   if $confd_purge == true {
