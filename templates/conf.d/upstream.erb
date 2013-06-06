@@ -1,12 +1,11 @@
 upstream <%= name %> {
-  <% members.each do |i| -%>
+ <%- members.each do |i| -%>
   server <%= i %>;
-  <% end -%>
-
-  <% if check -%>
+ <%- end -%>
+ <%- if check -%>
   check <%= check %>;
-  <% if check_path -%>
+  <%- if check_path -%>
   check_http_send "GET <%= check_path %> HTTP/1.0\r\n\r\n";
-  <% end -%>
-  <% end -%>
+  <%- end -%>
+ <%- end -%>
 }

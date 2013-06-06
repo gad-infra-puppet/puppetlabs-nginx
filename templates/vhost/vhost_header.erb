@@ -6,7 +6,7 @@ server {
   <% end %>
   server_name <%= rewrite_www_to_non_www ? name.gsub(/^www\./, '') : server_name.join(" ") %>;
 <% if vhost_log_enabled -%>
-  <% if log_format -%>
+  <%- if log_format -%>
   access_log  <%= scope.lookupvar('nginx::params::nx_logdir')%>/<%= name %>.access.log <%= log_format %>;
   <% else -%>
   access_log  <%= scope.lookupvar('nginx::params::nx_logdir')%>/<%= name %>.access.log;
