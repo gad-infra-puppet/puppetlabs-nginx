@@ -39,11 +39,6 @@ class nginx::config(
       purge => true,
       recurse => true,
     }
-
-    File["${nginx::params::nx_conf_dir}/rules.d"] {
-      purge => true,
-      recurse => true,
-    }
   }
 
 
