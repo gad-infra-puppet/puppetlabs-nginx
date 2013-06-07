@@ -4,7 +4,14 @@ server {
   listen [<%= ipv6_listen_ip %>]:<%= ipv6_listen_port %> <% if @ipv6_listen_options %><%= ipv6_listen_options %><% end %> ipv6only=on;
   <% end %>
   server_name  <%= rewrite_www_to_non_www ? name.gsub(/^www\./, '') : server_name.join(" ") %>;
-  access_log   <%= scope.lookupvar('nginx::params::nx_logdir')%>/<%= name %>.access.log;
+
+<%- if vhost_log_enabled -%>
+  <%- if vhost_log_format -%>
+  access_log  <%= scope.lookupvar('nginx::params::nx_logdir')%>/<%= name %>.access.log <%= vhost_log_format %>;
+  <% else -%>
+  access_log  <%= scope.lookupvar('nginx::params::nx_logdir')%>/<%= name %>.access.log;
+  <% end -%>
+<%- end -%>
 
   ssl on;
   ssl_certificate      <%= ssl_cert %>;
@@ -19,4 +26,11 @@ server {
 <%- if has_auth -%>
   auth_basic            "<%= auths['info'] %>";
   auth_basic_user_file  <%= auths['file'] %>;
+<%- end -%>
+
+  include /etc/nginx/conf.d/proxy.conf;
+<%- if vhost_include_files -%>
+  <%- vhost_include_files.each do |k| -%>
+  inlcude <%= k %>;
+  <%- end -%>
 <%- end -%>
