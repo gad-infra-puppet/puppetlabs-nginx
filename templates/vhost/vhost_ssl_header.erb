@@ -31,6 +31,6 @@ server {
   include /etc/nginx/conf.d/proxy.conf;
 <%- if vhost_include_files -%>
   <%- vhost_include_files.each do |k| -%>
-  inlcude <%= k %>;
+  include <%= k %>;
   <%- end -%>
 <%- end -%>
