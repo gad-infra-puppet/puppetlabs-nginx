@@ -24,7 +24,8 @@
 #   [*server_name*]         - List of vhostnames for which this vhost will respond. Default [$name].
 #   [*www_root*]            - Specifies the location on disk for files to be read from. Cannot be set in conjunction with $proxy
 #   [*vhost_log_enabled*]
-#   [*log_format*]
+#   [*vhost_log_format*]
+#   [*vhost_include_files*]
 #   [*rewrite_www_to_non_www*]  - Adds a server directive and rewrite rule to rewrite www.domain.com to domain.com in order to avoid
 #                             duplicate content (SEO);
 #   [*try_files*]           - Specifies the locations for files to be checked as an array. Cannot be used in conjuction with $proxy.
@@ -61,7 +62,8 @@ define nginx::resource::vhost(
   $www_root               = undef,
   $rewrite_www_to_non_www = false,
   $vhost_log_enabled      = true,
-  $log_format             = false,
+  $vhost_log_format       = false,
+  $vhost_include_files    = false,
   $location_cfg_prepend   = undef,
   $location_cfg_append    = undef,
   $location               = '/',

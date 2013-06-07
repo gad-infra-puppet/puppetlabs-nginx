@@ -6,8 +6,8 @@ server {
   <% end %>
   server_name <%= rewrite_www_to_non_www ? name.gsub(/^www\./, '') : server_name.join(" ") %>;
 <% if vhost_log_enabled -%>
-  <%- if log_format -%>
-  access_log  <%= scope.lookupvar('nginx::params::nx_logdir')%>/<%= name %>.access.log <%= log_format %>;
+  <%- if vhost_log_format -%>
+  access_log  <%= scope.lookupvar('nginx::params::nx_logdir')%>/<%= name %>.access.log <%= vhost_log_format %>;
   <% else -%>
   access_log  <%= scope.lookupvar('nginx::params::nx_logdir')%>/<%= name %>.access.log;
   <% end -%>
@@ -23,3 +23,8 @@ server {
 <% end -%>
 
   include /etc/nginx/conf.d/proxy.conf;
+<%- if vhost_include_files -%>
+  <%- vhost_include_files.each do |k| -%>
+  inlcude <%= k %>;
+  <%- end -%>
+<%- end -%>
