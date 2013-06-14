@@ -26,6 +26,8 @@ http {
   keepalive_timeout  <%= keepalive_timeout %>;
   tcp_nodelay        <%= scope.lookupvar('nginx::params::nx_tcp_nodelay')%>;
 
+  backlog 16384;
+
   <% if scope.lookupvar('nginx::params::nx_gzip') == 'on' %> 
   gzip            on;
   gzip_min_length 2k;
