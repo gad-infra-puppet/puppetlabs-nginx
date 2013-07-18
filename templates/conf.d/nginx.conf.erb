@@ -25,6 +25,7 @@ http {
 
   keepalive_timeout  <%= keepalive_timeout %>;
   tcp_nodelay        <%= scope.lookupvar('nginx::params::nx_tcp_nodelay')%>;
+  map_hash_bucket_size 128;
 
   <% if scope.lookupvar('nginx::params::nx_gzip') == 'on' %> 
   gzip            on;
