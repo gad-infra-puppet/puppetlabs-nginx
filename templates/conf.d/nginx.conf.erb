@@ -22,7 +22,7 @@ http {
   <% if scope.lookupvar('nginx::params::nx_tcp_nopush') == 'on' %>
   tcp_nopush  on;
   <% end %>
-
+  server_tokens off;
   keepalive_timeout  <%= keepalive_timeout %>;
   tcp_nodelay        <%= scope.lookupvar('nginx::params::nx_tcp_nodelay')%>;
   map_hash_bucket_size 128;
