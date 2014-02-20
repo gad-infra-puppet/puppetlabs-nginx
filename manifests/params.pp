@@ -21,6 +21,7 @@ class nginx::params {
   $nx_confd_purge        = false
   $nx_worker_processes   = 1
   $nx_worker_connections = 1024
+  $nx_worker_file_limits = 1024
   $nx_multi_accept       = off
   $nx_sendfile           = on
   $nx_keepalive_timeout  = 65

@@ -16,6 +16,7 @@
 class nginx::config(
   $worker_processes    = $nginx::params::nx_worker_processes,
   $worker_connections  = $nginx::params::nx_worker_connections,
+  $worker_file_limits  = $nginx::params::nx_worker_file_limits,
   $keepalive_timeout   = $nginx::params::nx_keepalive_timeout,
   $proxy_set_header    = $nginx::params::nx_proxy_set_header,
   $proxy_hide_header   = $nginx::params::nx_proxy_hide_header,

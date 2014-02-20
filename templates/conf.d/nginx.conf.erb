@@ -3,7 +3,7 @@ worker_processes <%= worker_processes %>;
 
 error_log  <%= scope.lookupvar('nginx::params::nx_logdir')%>/error.log;
 pid        <%= scope.lookupvar('nginx::params::nx_pid')%>;
-worker_rlimit_nofile <%= worker_connections %>;
+worker_rlimit_nofile <%= worker_file_limits %>;
 
 events {
   worker_connections <%= worker_connections %>;
