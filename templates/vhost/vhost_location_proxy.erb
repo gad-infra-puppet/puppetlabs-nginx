@@ -1,4 +1,10 @@
   location <%= location %> {
+<%- if maintenance -%>
+    if ($maintenance) {
+      return 503;
+    }
+<%- end -%>
+
 <%- if @location_cfg_prepend -%>
   <%- location_cfg_prepend.sort.each do |key,value| -%>
     <%- if value.is_a?(Array) -%>

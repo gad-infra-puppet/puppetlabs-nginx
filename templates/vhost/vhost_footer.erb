@@ -4,6 +4,14 @@
 <%- else -%>
   location = /favicon.ico { access_log off; log_not_found off; }
 <%- end -%>
+
+<%- if maintenance -%>
+  ## add geo $maintenance in global section
+  error_page 503 @maintenance;
+  location @maintenance {
+    rewrite ^(.*)$ <%= error503_url %> break;
+  }
+<%- end -%>
 }
 
 <% if rewrite_www_to_non_www %>

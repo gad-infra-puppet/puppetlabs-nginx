@@ -5,6 +5,9 @@ server {
   listen [<%= ipv6_listen_ip %>]:<%= ipv6_listen_port %> <% if @ipv6_listen_options %><%= ipv6_listen_options %><% end %> ipv6only=on;
   <% end %>
   server_name <%= rewrite_www_to_non_www ? name.gsub(/^www\./, '') : server_name.join(" ") %>;
+  <%- if vhost_root -%>
+  root <%= vhost_root %>;
+  <%- end -%>
 
 <%- if vhost_log_enabled -%>
   <%- if vhost_log_format -%>
@@ -16,7 +19,7 @@ server {
 
 <%- if fastcgi_pass -%>
   root  <%= www_root %>;
-  index <% index_files.each do |i| %> <%= i %><% end %>; 
+  index <% index_files.each do |i| %> <%= i %><% end %>;
 <% end -%>
 <% if has_auth -%>
   auth_basic            "<%= auths['info'] %>";

@@ -26,6 +26,7 @@
 #   [*vhost_log_enabled*]
 #   [*vhost_log_format*]
 #   [*vhost_include_files*]
+#   [*vhost_root*]          - Specify the root of server, not for default location
 #   [*rewrite_www_to_non_www*]  - Adds a server directive and rewrite rule to rewrite www.domain.com to domain.com in order to avoid
 #                             duplicate content (SEO);
 #   [*try_files*]           - Specifies the locations for files to be checked as an array. Cannot be used in conjuction with $proxy.
@@ -64,15 +65,18 @@ define nginx::resource::vhost(
   $vhost_log_enabled      = true,
   $vhost_log_format       = false,
   $vhost_include_files    = false,
+  $vhost_root             = false,
   $location_cfg_prepend   = undef,
   $location_cfg_append    = undef,
   $location               = '/',
   $fastcgi_pass           = false,
   $try_files              = undef,
+  $maintenance            = false,
+  $error503_url           = '/error503.html',
   $is_nagios3             = false,
   $has_auth               = false,
-  $auths                  = { 
-                              info=>'nginx basic', 
+  $auths                  = {
+                              info=>'nginx basic',
                               file => '/etc/nginx/htpasswd.users'
                             },
 ) {
@@ -108,7 +112,7 @@ define nginx::resource::vhost(
       notify => Class['nginx::service'],
     }
   }
-  
+
   if ($ssl == 'true') and ($ssl_port == $listen_port) {
     $ssl_only = 'true'
   }
