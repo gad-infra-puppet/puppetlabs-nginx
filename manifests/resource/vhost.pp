@@ -121,6 +121,7 @@ define nginx::resource::vhost(
   nginx::resource::location {"${name}-default":
     ensure             => $ensure,
     vhost              => $name,
+    maintenance        => $maintenance,
     ssl                => $ssl,
     ssl_only           => $ssl_only,
     location           => $location,
