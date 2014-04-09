@@ -24,6 +24,12 @@ http {
   <% end %>
   server_tokens off;
   keepalive_timeout  <%= keepalive_timeout %>;
+
+  client_header_timeout 10;
+  client_body_timeout 10;
+  reset_timedout_connection on;
+  send_timeout 5;
+
   tcp_nodelay        <%= scope.lookupvar('nginx::params::nx_tcp_nodelay')%>;
   map_hash_bucket_size 128;
 

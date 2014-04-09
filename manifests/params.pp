@@ -26,6 +26,7 @@ class nginx::params {
   $nx_sendfile           = on
   $nx_keepalive_timeout  = 65
   $nx_tcp_nodelay        = on
+  $nx_tcp_nopush         = on
   $nx_gzip               = on
 
   $nx_proxy_redirect          = off
