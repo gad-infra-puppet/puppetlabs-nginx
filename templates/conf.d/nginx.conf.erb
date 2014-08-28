@@ -33,6 +33,9 @@ http {
   tcp_nodelay        <%= scope.lookupvar('nginx::params::nx_tcp_nodelay')%>;
   map_hash_bucket_size 128;
 
+  # default is 512
+  server_names_hash_max_size 1024;
+
   <% if scope.lookupvar('nginx::params::nx_gzip') == 'on' %> 
   gzip            on;
   gzip_min_length 2k;
