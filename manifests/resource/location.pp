@@ -8,6 +8,7 @@
 #   [*location*]             - Specifies the URI associated with this location entry
 #   [*www_root*]             - Specifies the location on disk for files to be read from. Cannot be set in conjunction with $proxy
 #   [*index_files*]          - Default index files for NGINX to read when traversing a directory
+#   [*resolver*]             - DNS ip
 #   [*proxy*]                - Proxy server(s) for a location to connect to. Accepts a single value, can be used in conjunction
 #                              with nginx::resource::upstream
 #   [*proxy_read_timeout*]   - Override the default the proxy read timeout value of 90 seconds
@@ -53,6 +54,7 @@ define nginx::resource::location(
   $www_root             = undef,
   $index_files          = ['index.html', 'index.htm', 'index.php'],
   $proxy                = undef,
+  $resolver             = undef,
   $proxy_read_timeout   = $nginx::params::nx_proxy_read_timeout,
   $ssl                  = false,
   $ssl_only		          = false,
